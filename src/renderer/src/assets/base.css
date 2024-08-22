@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --palestar-300: #adadad;
+  --palestar-200: #bbbbbb;
+  --palestar-175: #c7c7c7;
+
+  --palestar-150: #ececec;
+  --palestar-100: #dfdfdf;
+  --palestar-50: #f7f7f7;
+
+  --palestar-text-primary: #383838;
+  --palestart-text-dimmed: #7b7b7b;
+
+  --sintax-highlight-blue: #4477B4;
+  --sintax-highlight-red: #BC5029;
+  --sintax-highlight-green: #51802F;
+  --sintax-highlight-purple:  #A557A0;
+
+  --font-serif:  'IBM Plex Serif' , ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-monospaced: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sans-serif:
+    'IBM Plex Sans',
+    InterVariable,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+    outline: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+  padding: 0;
+  color: var(--palestar-text-primary);
+  user-select: none;
+}
+
+body, #root {
+  min-height: 100vh;
+  color: var(--palestar-text-primary);
+  background: var(--palestar-50);
+  line-height: 1.6;
+  font-family: var(--font-sans-serif);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main-content-height {
+  height: calc(100vh - 64px);
+}
+
+.appbar {
+  width: calc(100% - 137px);
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+
+.appbar-component {
+  -webkit-app-region: no-drag;
+}
