@@ -17,7 +17,7 @@ const ContentContainer: React.FC<ContentContainerProps> = (props) => {
         setIsMousePressedOnReader(true)
       }}
       onMouseUp={() => setIsMousePressedOnReader(false)}
-      className="px-2 py-8 flex flex-col gap-6 items-center overflow-auto relative"
+      className="px-2 py-8 flex flex-col  h-full gap-6 items-center overflow-auto relative"
     />
   )
 }

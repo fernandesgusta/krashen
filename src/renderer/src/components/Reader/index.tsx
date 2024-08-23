@@ -10,12 +10,14 @@ import IconButton from '../IconButton'
 import Paragraph from './Paragraph'
 import Word from './Word'
 import SelectionMenu from './SelectionMenu'
-import { useLayoutManager } from '@renderer/contexts/LayoutManagerContext'
+// import { useLayoutManager } from '@renderer/contexts/LayoutManagerContext'
+import { useReaderContext } from '@renderer/contexts/ReaderContext'
 
 const Reader: React.FC = () => {
-  const { setIsMousePressedOnReader, readerHtmlRef } = useLayoutManager()
+  const { isFocusMode, setIsFocusMode, isParagraphMode, setIsParagraphMode, selectedParagraph } =
+    useReaderContext()
 
-  const [title, setTitle] = useState(
+  const [title, _] = useState(
     `Le point sur la situation au Proche-Orient : les négociateurs israéliens affichent
     un « optimisme prudent » sur la signature d’un accord de trêve, selon le bureau
     de Benyamin Nétanyahou`
@@ -39,30 +41,39 @@ const Reader: React.FC = () => {
 
         <div className="flex-1"></div>
 
-        <IconButton icon={Cone} />
+        <IconButton
+          icon={Cone}
+          onClick={() => setIsFocusMode((prev) => !prev)}
+          selected={isFocusMode}
+        />
         <IconButton icon={AudioWaveform} />
-        <IconButton icon={Pilcrow} />
+        <IconButton
+          icon={Pilcrow}
+          onClick={() => setIsParagraphMode((prev) => !prev)}
+          selected={isParagraphMode}
+        />
       </Header>
 
-      <ContentContainer
-        onMouseDown={() => {
-          setIsMousePressedOnReader(true)
-        }}
-        onMouseUp={() => setIsMousePressedOnReader(false)}
-      >
-        <h1 className="text-3xl max-w-[700px] font-bold py-3 ">
-          {title.split(' ').map((word, idx) => (
-            <>
-              <Word data-bold key={idx}>
-                {word}
-              </Word>{' '}
-            </>
-          ))}
-        </h1>
+      <ContentContainer>
+        {isParagraphMode ? null : (
+          <h1 className="text-3xl max-w-[700px] font-bold py-3 ">
+            {title.split(' ').map((word, idx) => (
+              <>
+                <Word data-bold key={idx}>
+                  {word}
+                </Word>{' '}
+              </>
+            ))}
+          </h1>
+        )}
 
-        {segmentedParagraphs.map((paragraph, idx) => (
-          <Paragraph contents={paragraph} key={idx} />
-        ))}
+        {isParagraphMode ? (
+          <div className="flex h-full flex-1 items-center justify-center">
+            <Paragraph contents={segmentedParagraphs[selectedParagraph]} />
+          </div>
+        ) : (
+          segmentedParagraphs.map((paragraph, idx) => <Paragraph contents={paragraph} key={idx} />)
+        )}
         <SelectionMenu />
       </ContentContainer>
     </Container>

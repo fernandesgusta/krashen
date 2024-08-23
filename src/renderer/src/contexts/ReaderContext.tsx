@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState, useContext } from 'react'
 import { useApplicationContext } from './ApplicationContext'
+// import { ipcRenderer } from 'electron'
 
 export interface ReaderContextProps {
   isParagraphMode: boolean
@@ -43,6 +44,10 @@ const ReaderContextProvider: React.FC<{ children: JSX.Element }> = ({ children }
     if (documents.length > 0) setSelectedDocument(documents[0])
   }, [])
 
+  useEffect(() => {
+    window.electron.ipcRenderer.invoke('hide-window-overlay')
+  }, [isFocusMode])
+
   function handleSelectDocument(article: Article): void {
     setSelectedDocument(article)
     setSelectedParagraph(0)
@@ -73,7 +78,7 @@ const ReaderContextProvider: React.FC<{ children: JSX.Element }> = ({ children }
   )
 }
 
-export function useReaderContext() {
+export function useReaderContext(): ReaderContextProps {
   return useContext(ReaderContext)
 }
 

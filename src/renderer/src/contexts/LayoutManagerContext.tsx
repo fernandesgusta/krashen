@@ -22,6 +22,11 @@ export interface LayoutManagerContextProps {
   contextualTranslationMenuHtmlRef: RefObject<HTMLDivElement>
   readerHtmlRef: RefObject<HTMLDivElement>
   setIsMousePressedOnReader: Dispatch<React.SetStateAction<boolean>>
+
+  CommandPalletHtmlRef: RefObject<HTMLDivElement>
+  commandPalletQuery: string
+  setCommandPalletQuery: Dispatch<React.SetStateAction<string>>
+  CommandPalletInputRef: RefObject<HTMLInputElement>
 }
 
 const LayoutManagerContext = createContext<LayoutManagerContextProps>(
@@ -39,7 +44,10 @@ const LayoutManagerContextProvider: FC<{ children: JSX.Element }> = ({ children 
   const contextualTranslationMenuHtmlRef = useRef<HTMLDivElement>(null)
   const readerHtmlRef = useRef<HTMLDivElement>(null)
 
-  // TODO: Fix Positioning and reflect on how we're getting the node's coordinates
+  const CommandPalletHtmlRef = useRef<HTMLDivElement>(null)
+  const CommandPalletInputRef = useRef<HTMLInputElement>(null)
+  const [commandPalletQuery, setCommandPalletQuery] = useState<string>('')
+
   const handleTextSelectionChange = useCallback(() => {
     setIsContextualTranslationMenuOpened(false)
     // gives a small delay of 1 second before showing the context menu on the screen
@@ -91,7 +99,13 @@ const LayoutManagerContextProvider: FC<{ children: JSX.Element }> = ({ children 
         if (evt.ctrlKey) setIsFileExplorerPanelOpened((prev) => !prev)
         break
       case 'p':
-        if (evt.ctrlKey) setIsCommandPalletOpened((prev) => !prev)
+        // if (!CommandPalletHtmlRef.current || !CommandPalletInputRef.current) return undefined
+
+        if (evt.ctrlKey) {
+          setIsCommandPalletOpened((prev) => !prev)
+          // CommandPalletInputRef.current.dispatchEvent(new Event('invoked-command-pallet'))
+        }
+
         break
       case 'f':
         if (evt.ctrlKey) setIsFlashcardPanelOpened((prev) => !prev)
@@ -142,7 +156,11 @@ const LayoutManagerContextProvider: FC<{ children: JSX.Element }> = ({ children 
         isContextualTranslationMenuOpened,
         contextualTranslationMenuHtmlRef,
         setIsMousePressedOnReader,
-        readerHtmlRef
+        readerHtmlRef,
+        commandPalletQuery,
+        CommandPalletHtmlRef,
+        setCommandPalletQuery,
+        CommandPalletInputRef
       }}
     >
       {children}
