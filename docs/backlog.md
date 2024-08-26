@@ -18,7 +18,6 @@
 - [x] @ui-feat: create command pallet (*)
 - [ ] @ui-feat: add search functionality between files on the command pallet
 - [ ] @feat: add reverso-integration on the command pallet
-
 - [ ] @feat: add larouse integration on the command pallet
 
 

@@ -14,8 +14,8 @@ const Container: React.FC<CommandPalletContainerProps> = (props) => {
     <div
       ref={CommandPalletHtmlRef}
       {...props}
-      style={{ left: '50%', top: '20%', translate: '-50% 50%' }}
-      className="absolute flex max-h-[400px] overflow-hidden rounded border border-solid border-[var(--palestar-200)]  w-[400px] min-h-[40px] shadow-lg z-50 bg-[var(--palestar-150)]"
+      style={{ left: '50%', top: '20%', translate: '-50% 0' }}
+      className="absolute flex-col flex max-h-[400px] overflow-hidden rounded-lg border border-solid border-[var(--palestar-200)]  w-[600px] min-h-[40px] shadow-lg z-50 bg-[var(--palestar-150)]"
     />
   )
 }

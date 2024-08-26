@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { SentenceTokenizer } from 'natural'
+import { context, ReversoSupportedLanguages } from './reverso'
 
 export const TITLE_BAR_WINDOW_CONTROLS_HEIGHT = 31
 
@@ -25,7 +26,7 @@ function createWindow(): void {
     titleBarOverlay: {
       height: TITLE_BAR_WINDOW_CONTROLS_HEIGHT,
       // this is probably going to change with the possibility of different themes
-      color: '#dfdfdf'
+      color: '#dfdfdf00'
     }
   })
 
@@ -47,16 +48,10 @@ function createWindow(): void {
   }
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron')
+  electronApp.setAppUserModelId('com.akiri')
 
-  // Default open or close DevTools by F12 in development
-  // and ignore CommandOrControl + R in production.
-  // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
@@ -70,9 +65,18 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle('sentenceTokenizer', (evt, contents: string) => {
-    const tokenizer = new SentenceTokenizer()
-
+    const tokenizer = new SentenceTokenizer([])
     return tokenizer.tokenize(contents)
+  })
+
+  ipcMain.handle('reverso-context', async (evt, query) => {
+    const response = await context(
+      query,
+      ReversoSupportedLanguages.ENGLISH,
+      ReversoSupportedLanguages.FRENCH
+    )
+
+    return response
   })
 })
 

@@ -64,6 +64,18 @@ body, #root {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scroll-bar-firefox {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 #root {
   position: relative;
 }
