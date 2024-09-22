@@ -19,14 +19,14 @@ const MainApplicationPage: React.FC = () => {
     <>
       {isCommandPalletOpened ? <CommandPallet /> : null}
       <div className="flex h-full flex-col overflow-hidden">
-        <Appbar />
+        {!isFocusMode ? <Appbar /> : null}
         <div className="main-content-height flex ">
           {isFileExplorerPanelOpened && !isFocusMode ? <FileExplorer /> : null}
           <Reader />
 
           {isFlashcardPanelOpened && !isFocusMode ? <FlashcardPreviewPanel /> : null}
         </div>
-        <StatusBar />
+        {!isFocusMode ? <StatusBar /> : null}
       </div>
     </>
   )

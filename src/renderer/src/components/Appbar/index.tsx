@@ -4,6 +4,7 @@ import ClickableSpan from '../ClickableSpan'
 import IconButton from '../IconButton'
 import { Search } from 'lucide-react'
 import { useLayoutManager } from '@renderer/contexts/LayoutManagerContext'
+import WindowControls from '../WindowControls'
 
 const Appbar: React.FC = () => {
   const { isCommandPalletOpened, toggleCommandPallet } = useLayoutManager()
@@ -15,6 +16,7 @@ const Appbar: React.FC = () => {
       <ClickableSpan disabled>flashcards</ClickableSpan>
       <div className="flex-1"></div>
       <SimpleButton>entrar</SimpleButton>
+      <WindowControls />
     </AppbarContainer>
   )
 }

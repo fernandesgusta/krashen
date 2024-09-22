@@ -22,12 +22,14 @@ function createWindow(): void {
 
     // window frame configuration
 
-    titleBarStyle: 'hidden',
-    titleBarOverlay: {
-      height: TITLE_BAR_WINDOW_CONTROLS_HEIGHT,
-      // this is probably going to change with the possibility of different themes
-      color: '#dfdfdf00'
-    }
+    titleBarStyle: 'hidden'
+
+    /** Removed because it imposibilited the focus mode feature */
+    // titleBarOverlay: {
+    //   height: TITLE_BAR_WINDOW_CONTROLS_HEIGHT,
+    //   // this is probably going to change with the possibility of different themes
+    //   color: '#dfdfdf00'
+    // }
   })
 
   mainWindow.on('ready-to-show', () => {
@@ -77,6 +79,34 @@ app.whenReady().then(() => {
     )
 
     return response
+  })
+
+  ipcMain.handle('maximize', async () => {
+    const window = BrowserWindow.getFocusedWindow()
+
+    if (!window) return null
+
+    window.setFullScreen(true)
+  })
+
+  ipcMain.handle('unmaximize', async () => {
+    const window = BrowserWindow.getFocusedWindow()
+
+    if (!window) return null
+
+    window.setFullScreen(false)
+  })
+
+  ipcMain.handle('minimize', async () => {
+    const window = BrowserWindow.getFocusedWindow()
+
+    if (!window) return null
+
+    window.minimize()
+  })
+
+  ipcMain.handle('close-window', async () => {
+    app.quit()
   })
 })
 
